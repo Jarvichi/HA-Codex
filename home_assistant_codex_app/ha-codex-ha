@@ -15,6 +15,12 @@ Commands:
   reload <automation|script|scene|group|template|core|dashboard-resources>
                                  Reload one supported Home Assistant configuration area.
   restart                        Validate configuration, then restart Home Assistant Core.
+  dashboard list                 List dashboards.
+  dashboard get <url-path|->     Print a dashboard configuration as JSON; - means Overview.
+  dashboard create <url-path> <title>
+                                 Create an admin-only storage dashboard.
+  dashboard save <url-path|-> <json-file>
+                                 Save a complete dashboard configuration.
 
 Control actions must be enabled in the HA Codex add-on Configuration tab.
 Core restart additionally requires "Allow Home Assistant Core restart".
@@ -112,6 +118,11 @@ case "${1:-}" in
     check_config
     call_service homeassistant restart
     printf '%s\n' 'Home Assistant Core is restarting. It may be unavailable briefly.'
+    ;;
+  dashboard)
+    require_control
+    shift
+    exec node /usr/local/lib/ha-codex-dashboard.mjs "$@"
     ;;
   -h|--help|help|"")
     usage
