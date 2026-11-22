@@ -37,6 +37,7 @@ options:
   home_assistant_control: false
   allow_home_assistant_restart: false
   github_token: ""
+  github_email: ""
 schema:
   model: list(default|gpt-6-astra|gpt-6.1-sol|gpt-6-sol|gpt-6.1-terra|gpt-6-luna|gpt-5.6-terra|gpt-5.6-sol|gpt-5.6-luna)
   reasoning_effort: list(default|low|medium|high|xhigh|max|ultra)
@@ -52,3 +53,4 @@ schema:
   home_assistant_control: bool
   allow_home_assistant_restart: bool
   github_token: password?
+  github_email: str?

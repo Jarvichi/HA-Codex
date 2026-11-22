@@ -21,6 +21,7 @@ REASONING_EFFORT="$(bashio::config 'reasoning_effort')"
 HOME_ASSISTANT_CONTROL="$(bashio::config 'home_assistant_control')"
 ALLOW_HOME_ASSISTANT_RESTART="$(bashio::config 'allow_home_assistant_restart')"
 GITHUB_TOKEN_OPTION="$(bashio::config 'github_token')"
+GITHUB_EMAIL_OPTION="$(bashio::config 'github_email')"
 
 # Optional GitHub access: a fine-grained token limited to one repository, so Codex
 # can push branches and open pull requests with git and gh. The token reaches git
@@ -30,8 +31,10 @@ if [ -n "${GITHUB_TOKEN_OPTION}" ] && [ "${GITHUB_TOKEN_OPTION}" != "null" ]; th
   export GH_TOKEN="${GITHUB_TOKEN_OPTION}"
   git config --global credential.https://github.com.helper \
     '!f() { echo username=x-access-token; echo "password=${GH_TOKEN}"; }; f'
-  git config --global user.name  "${GIT_AUTHOR_NAME:-HA Codex}"
-  git config --global user.email "${GIT_AUTHOR_EMAIL:-codex@users.noreply.github.com}"
+  git config --global user.name "HA Codex"
+  if [ -n "${GITHUB_EMAIL_OPTION}" ] && [ "${GITHUB_EMAIL_OPTION}" != "null" ]; then
+    git config --global user.email "${GITHUB_EMAIL_OPTION}"
+  fi
   bashio::log.info "GitHub access: token set (git and gh)."
 else
   bashio::log.info "GitHub access: off (no token set)."

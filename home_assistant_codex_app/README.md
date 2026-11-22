@@ -116,6 +116,7 @@ Codex.
 | **Codex memories** | Off | Starts new Codex sessions with the Codex memories feature enabled, so Codex can remember useful details between sessions. When off, any choice made with `/memories` in Codex still applies. |
 | **Allow Home Assistant control actions** | Off | Enables HA Codex's restricted configuration check and reload helper. |
 | **Allow Home Assistant Core restart** | Off | Allows the helper to restart Core after a successful configuration check. Requires control actions to be enabled. |
+| **GitHub commit email** | Empty | The email git puts on Codex's commits (a GitHub `...@users.noreply.github.com` address works). Without it, commits need an email set per command. |
 | **GitHub token** | Empty | Lets `git` and `gh` push branches and open pull requests. Create a fine-grained token limited to ONE repository with Contents and Pull requests read/write, and turn on branch protection for `main`. Restart the add-on after changing it. |
 
 For long reviews, leave **Preserve terminal history** on. A visible gold
