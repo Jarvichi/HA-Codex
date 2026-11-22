@@ -77,9 +77,10 @@ RUN case "${BUILD_ARCH:-${TARGETARCH}}" in \
 
 COPY run.sh /run.sh
 COPY session.sh /usr/local/bin/ha-codex-session
+COPY tmux-session.sh /usr/local/bin/ha-codex-tmux
 COPY ha-codex-ha /usr/local/bin/ha-codex-ha
 COPY tmux.conf /etc/ha-codex-tmux.conf
-RUN chmod 0755 /run.sh /usr/local/bin/ha-codex-session /usr/local/bin/ha-codex-ha \
+RUN chmod 0755 /run.sh /usr/local/bin/ha-codex-session /usr/local/bin/ha-codex-tmux /usr/local/bin/ha-codex-ha \
   && mkdir -p /homeassistant /config/codex
 
 WORKDIR /homeassistant
