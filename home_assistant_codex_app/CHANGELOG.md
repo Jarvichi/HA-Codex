@@ -2,6 +2,10 @@
 
 All notable changes to HA Codex are documented here.
 
+## Unreleased
+
+- The terminal start script now logs tmux errors to `/config/codex/tmux-session.log` and shows them in the terminal instead of closing silently, to diagnose the reconnect `can't find pane` failure.
+
 ## 1.2.45
 
 - Updated the pinned Codex CLI from 0.170.0 to 0.171.0, including the version-matched `codex-code-mode-host` artifact. See the [Codex 0.171.0 release notes](https://github.com/openai/codex/releases/tag/rust-v0.171.0) for what changed.
