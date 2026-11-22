@@ -2,6 +2,10 @@
 
 All notable changes to HA Codex are documented here.
 
+## 1.2.48
+
+- Added `ha-codex-ha dashboard list | get | create | save` so Codex can read, create and save storage dashboards when **Allow Home Assistant control actions** is on. New dashboards are admin-only. Saving replaces the whole configuration, so keep a backup. Python 3 and the `websockets` package are now in the image for dashboard builder scripts.
+
 ## 1.2.47
 
 - Fixed reconnecting to an existing terminal session failing with `open terminal failed: not a terminal`: the start script ran `tmux attach` inside the loop that reads the session list, so tmux saw a pipe instead of the terminal. It now finds the session first and attaches afterwards.
