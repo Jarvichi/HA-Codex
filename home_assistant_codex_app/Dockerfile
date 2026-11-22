@@ -39,6 +39,7 @@ RUN case "${BUILD_ARCH:-${TARGETARCH}}" in \
       ca-certificates \
       curl \
       git \
+      github-cli \
       grep \
       gzip \
       jq \
