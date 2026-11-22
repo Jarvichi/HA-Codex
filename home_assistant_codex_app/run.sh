@@ -20,6 +20,25 @@ MODEL="$(bashio::config 'model')"
 REASONING_EFFORT="$(bashio::config 'reasoning_effort')"
 HOME_ASSISTANT_CONTROL="$(bashio::config 'home_assistant_control')"
 ALLOW_HOME_ASSISTANT_RESTART="$(bashio::config 'allow_home_assistant_restart')"
+GITHUB_TOKEN_OPTION="$(bashio::config 'github_token')"
+GITHUB_EMAIL_OPTION="$(bashio::config 'github_email')"
+
+# Optional GitHub access: a fine-grained token limited to one repository, so Codex
+# can push branches and open pull requests with git and gh. The token reaches git
+# only through the credential helper below and gh through GH_TOKEN; it is never
+# written to a file or logged. Restart the add-on after changing it.
+if [ -n "${GITHUB_TOKEN_OPTION}" ] && [ "${GITHUB_TOKEN_OPTION}" != "null" ]; then
+  export GH_TOKEN="${GITHUB_TOKEN_OPTION}"
+  git config --global credential.https://github.com.helper \
+    '!f() { echo username=x-access-token; echo "password=${GH_TOKEN}"; }; f'
+  git config --global user.name "HA Codex"
+  if [ -n "${GITHUB_EMAIL_OPTION}" ] && [ "${GITHUB_EMAIL_OPTION}" != "null" ]; then
+    git config --global user.email "${GITHUB_EMAIL_OPTION}"
+  fi
+  bashio::log.info "GitHub access: token set (git and gh)."
+else
+  bashio::log.info "GitHub access: off (no token set)."
+fi
 
 # "default" passes no --model, so Codex uses the model saved with /model (the
 # top-level model key in config.toml) or its own default. That saved model, when

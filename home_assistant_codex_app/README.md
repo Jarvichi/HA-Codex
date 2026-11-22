@@ -18,6 +18,16 @@ configuration directory.
 ## What it can do
 
 - Review and edit YAML, dashboards, automations, scripts, packages, and custom components.
+- Run Python 3 dashboard builders that require the `websockets` package.
+
+With **Allow Home Assistant control actions** enabled, `ha-codex-ha dashboard list`
+lists storage dashboards and `ha-codex-ha dashboard get house-agents` prints a
+dashboard configuration as JSON. Use `ha-codex-ha dashboard create to-be-deleted
+'To Be Deleted'` to create an admin-only dashboard and `ha-codex-ha dashboard
+save to-be-deleted /path/to/config.json` to save a complete configuration.
+Use `-` instead of the URL path for the default Overview dashboard. Save replaces
+the whole configuration, so preserve a backup and include every view to keep.
+Refresh the browser to see changes.
 - Run local commands such as `git diff`, `rg`, and Home Assistant configuration checks available in the container.
 - Keep a Codex session alive while you leave and return to the Home Assistant sidebar.
 - Attach files from your device with `trz`, and download files back with `tsz` (enable **Terminal file transfer** first).
@@ -106,6 +116,8 @@ Codex.
 | **Codex memories** | Off | Starts new Codex sessions with the Codex memories feature enabled, so Codex can remember useful details between sessions. When off, any choice made with `/memories` in Codex still applies. |
 | **Allow Home Assistant control actions** | Off | Enables HA Codex's restricted configuration check and reload helper. |
 | **Allow Home Assistant Core restart** | Off | Allows the helper to restart Core after a successful configuration check. Requires control actions to be enabled. |
+| **GitHub commit email** | Empty | The email git puts on Codex's commits (a GitHub `...@users.noreply.github.com` address works). Without it, commits need an email set per command. |
+| **GitHub token** | Empty | Lets `git` and `gh` push branches and open pull requests. Create a fine-grained token limited to ONE repository with Contents and Pull requests read/write, and turn on branch protection for `main`. Restart the add-on after changing it. |
 
 For long reviews, leave **Preserve terminal history** on. A visible gold
 history rail at the right edge shows your position in the history: use its
