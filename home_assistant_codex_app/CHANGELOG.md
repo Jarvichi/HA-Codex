@@ -2,9 +2,10 @@
 
 All notable changes to HA Codex are documented here.
 
-## Unreleased
+## 1.2.46
 
-- The terminal start script now logs tmux errors to `/config/codex/tmux-session.log` and shows them in the terminal instead of closing silently, to diagnose the reconnect `can't find pane` failure.
+- Fixed the terminal failing to reconnect after the first connection: model names containing a period (such as `gpt-6.1-terra`) were read by tmux as a pane separator, giving `can't find pane`. New sessions use underscores, and existing sessions are found by their literal name and attached by ID.
+- The terminal start script now logs tmux errors to `/config/codex/tmux-session.log` and shows them in the terminal instead of closing silently.
 
 ## 1.2.45
 
