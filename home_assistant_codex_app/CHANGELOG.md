@@ -2,6 +2,10 @@
 
 All notable changes to HA Codex are documented here.
 
+## 1.2.47
+
+- Fixed reconnecting to an existing terminal session failing with `open terminal failed: not a terminal`: the start script ran `tmux attach` inside the loop that reads the session list, so tmux saw a pipe instead of the terminal. It now finds the session first and attaches afterwards.
+
 ## 1.2.46
 
 - Fixed the terminal failing to reconnect after the first connection: model names containing a period (such as `gpt-6.1-terra`) were read by tmux as a pane separator, giving `can't find pane`. New sessions use underscores, and existing sessions are found by their literal name and attached by ID.
