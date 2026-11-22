@@ -20,13 +20,21 @@ tmux -f "$config" set-option -g history-limit "$scrollback" 2>/dev/null || true
 
 # A dot in a target is parsed as a pane separator. Find existing sessions by
 # their literal names and attach by ID, including sessions made by older builds.
+# The loop only finds the ID. It must NOT attach: its stdin is the session list, not the
+# terminal, and tmux then fails with "open terminal failed: not a terminal" (22 Nov 2026).
+existing=""
 while IFS=' ' read -r name id; do
   if [[ "$name" == "$legacy_name" || "$name" == "$safe_name" ]]; then
-    echo "$(date '+%F %T') attach $id" >> "$log"
-    tmux -f "$config" attach-session -t "$id"
-    exit $?
+    existing="$id"
+    break
   fi
 done < <(tmux -f "$config" list-sessions -F '#{session_name} #{session_id}' 2>/dev/null)
+
+if [ -n "$existing" ]; then
+  echo "$(date '+%F %T') attach $existing" >> "$log"
+  tmux -f "$config" attach-session -t "$existing"
+  exit $?
+fi
 
 tmux -f "$config" new-session -A -s "$safe_name" \
   "/usr/local/bin/ha-codex-session ${model} ${mode}; exec bash -l"
