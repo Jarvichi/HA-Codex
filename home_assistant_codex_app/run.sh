@@ -131,7 +131,7 @@ if [ "${PERSIST}" = "true" ]; then
   # tmux preserves the live Codex process across Home Assistant navigation.
   # Its configuration is loaded before the server starts so mouse scrolling
   # enters copy mode rather than recalling commands at the prompt.
-  COMMAND="tmux -f /etc/ha-codex-tmux.conf set-option -g history-limit ${SCROLLBACK}; tmux -f /etc/ha-codex-tmux.conf new-session -A -s ${SESSION_NAME} '/usr/local/bin/ha-codex-session ${MODEL} ${TERMINAL_MODE}; exec bash -l'"
+  COMMAND="exec /usr/local/bin/ha-codex-tmux ${SCROLLBACK} ${SESSION_NAME} ${MODEL} ${TERMINAL_MODE}"
 else
   COMMAND="exec /usr/local/bin/ha-codex-session ${MODEL} ${TERMINAL_MODE}"
 fi
