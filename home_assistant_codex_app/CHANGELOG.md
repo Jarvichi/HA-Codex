@@ -2,6 +2,11 @@
 
 All notable changes to HA Codex are documented here.
 
+## 1.2.50
+
+- Updated the pinned Codex CLI from 0.171.0 to 0.172.0, including the version-matched `codex-code-mode-host` artifact. See the [Codex 0.172.0 release notes](https://github.com/openai/codex/releases/tag/rust-v0.172.0) for what changed.
+- Released automatically after the amd64 and aarch64 builds and smoke tests passed. Model choices and settings are unchanged.
+
 ## 1.2.49
 
 - Added an optional **GitHub token** option and the `gh` tool. With a token set, `git` and `gh` can push branches and open pull requests. Use a fine-grained token limited to one repository and protect `main`. The token is passed to git through a credential helper and to `gh` through `GH_TOKEN`; it is never written to disk or logged. Empty by default.
